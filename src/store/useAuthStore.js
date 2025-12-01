@@ -204,20 +204,6 @@ export const useAuthStore = create((set, get) => ({
     }
   },
 
-  signup: async (data) => {
-    set({ isSigningUp: true });
-    try {
-      const res = await axiosInstance.post("/auth/signup", data);
-      set({ authUser: res.data });
-      localStorage.setItem("token", res.data.token);
-      toast.success("Account created successfully");
-      get().connectSocket();
-    } catch (error) {
-      toast.error(error.response?.data?.message || "Signup failed");
-    } finally {
-      set({ isSigningUp: false });
-    }
-  },
 
   login: async (data) => {
     set({ isLoggingIn: true });
@@ -245,6 +231,50 @@ export const useAuthStore = create((set, get) => ({
       toast.error(error.response?.data?.message || "Logout failed");
     }
   },
+
+
+
+  // signup: async (data) => {
+  //   set({ isSigningUp: true });
+  //   try {
+  //     const res = await axiosInstance.post("/auth/signup", data);
+  //     set({ authUser: res.data });
+  //     localStorage.setItem("token", res.data.token);
+  //     toast.success("Account created successfully");
+  //     get().connectSocket();
+  //   } catch (error) {
+  //     toast.error(error.response?.data?.message || "Signup failed");
+  //   } finally {
+  //     set({ isSigningUp: false });
+  //   }
+  // },
+
+  // login: async (data) => {
+  //   set({ isLoggingIn: true });
+  //   try {
+  //     const res = await axiosInstance.post("/auth/login", data);
+  //     set({ authUser: res.data });
+  //     localStorage.setItem("token", res.data.token);
+  //     toast.success("Logged in successfully");
+  //     get().connectSocket();
+  //   } catch (error) {
+  //     toast.error(error.response?.data?.message || "Login failed");
+  //   } finally {
+  //     set({ isLoggingIn: false });
+  //   }
+  // },
+
+  // logout: async () => {
+  //   try {
+  //     await axiosInstance.post("/auth/logout");
+  //     set({ authUser: null });
+  //     localStorage.removeItem("token");
+  //     toast.success("Logged out successfully");
+  //     get().disconnectSocket();
+  //   } catch (error) {
+  //     toast.error(error.response?.data?.message || "Logout failed");
+  //   }
+  // },
 
   updateProfile: async (data) => {
     set({ isUpdatingProfile: true });
